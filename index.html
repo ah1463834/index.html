@@ -1,1 +1,630 @@
-new
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online Skills Institution — Master the Skills of Tomorrow</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-primary: #030712;
+      --surface-glass: rgba(17, 24, 39, 0.55);
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --accent-purple: #a855f7;
+      --accent-cyan: #06b6d4;
+      --text-main: #f9fafb;
+      --text-muted: #9ca3af;
+      --shadow-elevated: 0 20px 40px rgba(0, 0, 0, 0.4);
+      --radius-lg: 20px;
+      --radius-xl: 24px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background:
+        radial-gradient(ellipse 90% 60% at 50% -30%, rgba(168, 85, 247, 0.22), transparent 55%),
+        radial-gradient(ellipse 70% 50% at 85% 40%, rgba(6, 182, 212, 0.14), transparent 50%),
+        radial-gradient(ellipse 55% 40% at 10% 85%, rgba(168, 85, 247, 0.12), transparent 45%),
+        var(--bg-primary);
+      color: var(--text-main);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .bg-video {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 100vw;
+      height: 100vh;
+      min-width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+      transform: translate(-50%, -50%);
+      z-index: -2;
+      pointer-events: none;
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(3, 7, 18, 0.8);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    /* Navbar */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(3, 7, 18, 0.7);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 16px 0;
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.2rem;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 20px;
+      background: linear-gradient(135deg, var(--accent-purple), #7c3aed);
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.875rem;
+      border-radius: 999px;
+      text-decoration: none;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      box-shadow: 0 4px 18px rgba(168, 85, 247, 0.4);
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 8px 28px rgba(168, 85, 247, 0.55);
+    }
+
+    /* Hero */
+    .hero {
+      padding: 72px 0 56px;
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 16px;
+      background: rgba(6, 182, 212, 0.12);
+      border: 1px solid rgba(6, 182, 212, 0.35);
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #a5f3fc;
+      margin-bottom: 24px;
+      box-shadow: 0 0 24px rgba(6, 182, 212, 0.15);
+    }
+
+    .badge::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      background: var(--accent-cyan);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--accent-cyan);
+    }
+
+    .hero h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: clamp(2.35rem, 6.5vw, 3.85rem);
+      line-height: 1.12;
+      letter-spacing: -0.03em;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-sub {
+      font-size: clamp(1rem, 2.2vw, 1.175rem);
+      color: var(--text-muted);
+      max-width: 580px;
+      margin: 0 auto 36px;
+      font-weight: 400;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 28px;
+      background: linear-gradient(135deg, var(--accent-purple), #7c3aed);
+      color: #fff;
+      font-weight: 600;
+      font-size: 1rem;
+      border-radius: 14px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      box-shadow: 0 8px 28px rgba(168, 85, 247, 0.42);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 14px 36px rgba(168, 85, 247, 0.55);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 28px;
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-main);
+      font-weight: 600;
+      font-size: 1rem;
+      border-radius: 14px;
+      text-decoration: none;
+      border: 1px solid var(--border-subtle);
+      transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+    }
+
+    .btn-secondary:hover {
+      transform: translateY(-3px) scale(1.03);
+      background: rgba(255, 255, 255, 0.09);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    /* Social Proof */
+    .social-proof {
+      padding: 12px 0 48px;
+    }
+
+    .stats {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px 36px;
+      background: var(--surface-glass);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      padding: 22px 28px;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: var(--shadow-elevated);
+    }
+
+    .stat {
+      text-align: center;
+      min-width: 110px;
+    }
+
+    .stat-value {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.4rem;
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 3px;
+      font-weight: 500;
+    }
+
+    /* Courses */
+    .courses {
+      padding: 12px 0 88px;
+    }
+
+    .section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: clamp(1.65rem, 3.6vw, 2.15rem);
+      text-align: center;
+      margin-bottom: 10px;
+      letter-spacing: -0.025em;
+    }
+
+    .section-sub {
+      text-align: center;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+      max-width: 460px;
+      margin-left: auto;
+      margin-right: auto;
+      font-size: 1.02rem;
+    }
+
+    .course-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 22px;
+    }
+
+    @media (min-width: 768px) {
+      .course-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+      }
+    }
+
+    .course-card {
+      background: var(--surface-glass);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      padding: 28px 26px;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+                  box-shadow 0.3s ease,
+                  border-color 0.3s ease;
+    }
+
+    .course-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(145deg, rgba(168, 85, 247, 0.45), transparent 42%, transparent 58%, rgba(6, 182, 212, 0.4));
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+      opacity: 0.65;
+      transition: opacity 0.3s ease;
+    }
+
+    .course-card:hover {
+      transform: translateY(-6px) scale(1.015);
+      box-shadow: var(--shadow-elevated), 0 0 48px rgba(168, 85, 247, 0.12);
+      border-color: rgba(168, 85, 247, 0.28);
+    }
+
+    .course-card:hover::before {
+      opacity: 1;
+    }
+
+    .card-badge {
+      display: inline-flex;
+      align-self: flex-start;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 0.74rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      margin-bottom: 16px;
+    }
+
+    .card-badge.premium {
+      background: rgba(168, 85, 247, 0.18);
+      color: #e9d5ff;
+      border: 1px solid rgba(168, 85, 247, 0.4);
+    }
+
+    .card-badge.free {
+      background: rgba(6, 182, 212, 0.14);
+      color: #a5f3fc;
+      border: 1px solid rgba(6, 182, 212, 0.38);
+    }
+
+    .course-card h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.22rem;
+      margin-bottom: 10px;
+      letter-spacing: -0.015em;
+      line-height: 1.3;
+    }
+
+    .course-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 24px;
+      flex-grow: 1;
+      line-height: 1.55;
+    }
+
+    .price-row {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .price {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.5rem;
+    }
+
+    .price.free {
+      color: var(--accent-cyan);
+    }
+
+    .strike {
+      font-size: 1rem;
+      color: var(--text-muted);
+      text-decoration: line-through;
+      font-weight: 500;
+    }
+
+    .card-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 13px 20px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+    }
+
+    .card-cta.enroll {
+      background: linear-gradient(135deg, var(--accent-purple), #7c3aed);
+      color: #fff;
+      box-shadow: 0 6px 22px rgba(168, 85, 247, 0.38);
+    }
+
+    .card-cta.enroll:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 10px 30px rgba(168, 85, 247, 0.52);
+    }
+
+    .card-cta.start {
+      background: rgba(6, 182, 212, 0.1);
+      color: #a5f3fc;
+      border: 1px solid rgba(6, 182, 212, 0.38);
+    }
+
+    .card-cta.start:hover {
+      transform: translateY(-2px) scale(1.02);
+      background: rgba(6, 182, 212, 0.18);
+    }
+
+    /* Footer */
+    .footer {
+      border-top: 1px solid var(--border-subtle);
+      padding: 32px 0;
+      text-align: center;
+    }
+
+    .footer p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .footer .brand {
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 600;
+    }
+
+    /* Staggered Entry Animations */
+    @keyframes slideUpFade {
+      from {
+        opacity: 0;
+        transform: translateY(32px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .anim-1,
+    .anim-2,
+    .anim-3,
+    .anim-4 {
+      opacity: 0;
+      will-change: transform, opacity;
+      animation: slideUpFade 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    .anim-1 { animation-delay: 0.08s; }
+    .anim-2 { animation-delay: 0.18s; }
+    .anim-3 { animation-delay: 0.28s; }
+    .anim-4 { animation-delay: 0.38s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .anim-1,
+      .anim-2,
+      .anim-3,
+      .anim-4 {
+        opacity: 1;
+        animation: none;
+        transform: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero {
+        padding: 56px 0 40px;
+      }
+      .stats {
+        flex-direction: column;
+        gap: 18px;
+        padding: 20px;
+      }
+      .stat {
+        min-width: auto;
+      }
+      .container {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <video class="bg-video" autoplay loop muted playsinline preload="auto">
+    <source src="https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-screens-and-lights-31149-large.mp4" type="video/mp4">
+  </video>
+  <div class="overlay"></div>
+
+  <nav class="navbar">
+    <div class="container nav-inner">
+      <div class="logo">Online Skills Institution</div>
+      <a href="#courses" class="nav-cta">Explore Courses</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container">
+      <div class="badge anim-1">Next-Gen Education</div>
+      <h1 class="anim-2">Master the Skills of <span>Tomorrow.</span></h1>
+      <p class="hero-sub anim-3">Level up with practical, industry-ready programs in AI, digital marketing, and intelligent automation — taught by practitioners who ship real products.</p>
+      <div class="hero-actions anim-4">
+        <a href="#courses" class="btn-primary">Browse Courses</a>
+        <a href="#courses" class="btn-secondary">Start Free</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="social-proof">
+    <div class="container">
+      <div class="stats anim-1">
+        <div class="stat">
+          <div class="stat-value">5,000+</div>
+          <div class="stat-label">Active Learners</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">4.9★</div>
+          <div class="stat-label">Community Rating</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">100%</div>
+          <div class="stat-label">Practical Focus</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="courses" id="courses">
+    <div class="container">
+      <h2 class="section-title anim-1">Featured Courses</h2>
+      <p class="section-sub anim-2">Hand-crafted programs that turn knowledge into career-ready skills.</p>
+
+      <div class="course-grid">
+        <article class="course-card anim-1">
+          <span class="card-badge premium">Premium Course</span>
+          <h3>ChatGPT Masterclass: Zero To Hero</h3>
+          <p>From first prompt to advanced workflows — master ChatGPT for productivity, content, coding, and automation.</p>
+          <div class="price-row">
+            <span class="price">₹999</span>
+            <span class="strike">₹2,999</span>
+          </div>
+          <a href="#" class="card-cta enroll">Enroll Now</a>
+        </article>
+
+        <article class="course-card anim-2">
+          <span class="card-badge free">100% Free</span>
+          <h3>LinkedIn Marketing School</h3>
+          <p>Build a magnetic personal brand, grow your network strategically, and turn LinkedIn into a lead engine.</p>
+          <div class="price-row">
+            <span class="price free">Free Access</span>
+          </div>
+          <a href="#" class="card-cta start">Start Learning</a>
+        </article>
+
+        <article class="course-card anim-3">
+          <span class="card-badge premium">Premium Course</span>
+          <h3>Mastering Marketing Automations</h3>
+          <p>Design, deploy, and scale marketing systems that nurture leads and convert on autopilot.</p>
+          <div class="price-row">
+            <span class="price">₹1,499</span>
+            <span class="strike">₹4,999</span>
+          </div>
+          <a href="#" class="card-cta enroll">Enroll Now</a>
+        </article>
+
+        <article class="course-card anim-4">
+          <span class="card-badge free">100% Free</span>
+          <h3>Mastering Microsoft 365</h3>
+          <p>Unlock the full power of Teams, Excel, Power Automate, and the modern workplace suite.</p>
+          <div class="price-row">
+            <span class="price free">Free Access</span>
+          </div>
+          <a href="#" class="card-cta start">Start Learning</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <p>© 2026 <span class="brand">Online Skills Institution</span>. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>
